@@ -252,4 +252,22 @@ if [ -f $STATE_FILE ]; then
       oci jms fleet generate-agent-deploy-script --file $TARGET_DIR/jms_agent_deploy.sh --fleet-id $FLEET_OCID --install-key-id $INSTALL_KEY_OCID --is-user-name-enabled true --os-family "LINUX"
     fi 
   fi
+
+  # GIT 
+  export GIT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+  if [ "$GIT_BRANCH" != "" ]; then
+    export TF_VAR_git_url=`git config --get remote.origin.url`
+    if [[ "$TF_VAR_git_url" == *"github.com"* ]]; then
+      S1=${TF_VAR_git_url/git@github.com:/https:\/\/github.com\/}        
+      export TF_VAR_git_url=${S1/.git/\/blob\/}${GIT_BRANCH}
+    fi
+
+    cd $ROOT_DIR
+    export GIT_RELATIVE_PATH=`git rev-parse --show-prefix`
+    cd -
+    export TF_VAR_git_url=${TF_VAR_git_url}/${GIT_RELATIVE_PATH}
+    echo $TF_VAR_git_url
+  fi
 fi
+
+

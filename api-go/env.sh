@@ -6,7 +6,7 @@ export OCI_STARTER_VERSION=1.5
 # Env Variables
 export TF_VAR_prefix="api-go"
 
-export TF_VAR_ui_strategy="none"
+export TF_VAR_ui_strategy="api"
 export TF_VAR_db_strategy="none"
 export TF_VAR_deploy_strategy="compute"
 export TF_VAR_language="go"
