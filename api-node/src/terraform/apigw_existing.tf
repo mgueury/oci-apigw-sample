@@ -14,15 +14,18 @@ locals {
 }
 
 variable git_url {}
+variable tag_env {}
 
 locals {
   api_git_tags = {
       group = local.group_name
       app_prefix = var.prefix
+      env = var.tag_env
 
       api_icon = var.language
       api_git_url = var.git_url 
       api_git_spec_path = "src/app/openapi_spec.yaml"
+      api_git_spec_type = "OpenAPI"
       api_git_endpoint_path = "src/terraform/apigw_existing.tf"
       api_endpoint_url = "app/dept"
   }
@@ -31,7 +34,7 @@ locals {
 
 resource "oci_apigateway_deployment" "starter_apigw_deployment" {
   compartment_id = local.lz_appdev_cmp_ocid
-  display_name   = "${var.prefix}-apigw-deployment"
+  display_name   = "${var.prefix}"
   gateway_id     = local.apigw_ocid
   path_prefix    = "/${var.prefix}"
   specification {

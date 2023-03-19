@@ -14,6 +14,7 @@ export TF_VAR_db_strategy="none"
 export TF_VAR_deploy_strategy="compute"
 export TF_VAR_language="java"
 export TF_VAR_db_user=""
+export TF_VAR_tag_env="prod"
 
 if [ -f $SCRIPT_DIR/../group_common_env.sh ]; then
   . $SCRIPT_DIR/../group_common_env.sh
